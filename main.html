@@ -623,6 +623,10 @@
   </div>
 </section>
 
+<button onclick="toggleMusic()" style="position:fixed;bottom:20px;right:20px;z-index:999;">
+  🔊 Music
+</button>
+
 <!-- ════ FOOTER ════ -->
 <footer>
   <div class="footer-name">✦ Happy 19th Birthday, Atchaya Ezhilarasan ✦</div>
@@ -665,6 +669,15 @@ function enableSound() {
 
 document.addEventListener('click', enableSound);
 document.addEventListener('keydown', enableSound);
+
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play();
+  } else {
+    music.pause();
+  }
+}
 
 
 // ── STAR CANVAS ──
