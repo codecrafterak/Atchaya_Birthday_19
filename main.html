@@ -440,6 +440,11 @@
 </style>
 </head>
 <body>
+<!-- Audio -->
+
+<audio id="bg-music" autoplay loop muted>
+  <source src="i_found_you.mp3" type="audio/mpeg">
+</audio>
 
 <!-- Star Canvas -->
 <canvas id="star-canvas"></canvas>
@@ -641,6 +646,27 @@
 </div>
 
 <script>
+
+const music = document.getElementById('bg-music');
+
+// Try to autoplay (muted works)
+window.addEventListener('load', () => {
+  music.play().catch(() => {});
+});
+
+// Unmute on first user interaction
+function enableSound() {
+  music.muted = false;
+  music.volume = 0.6; // adjust volume
+  music.play();
+  document.removeEventListener('click', enableSound);
+  document.removeEventListener('keydown', enableSound);
+}
+
+document.addEventListener('click', enableSound);
+document.addEventListener('keydown', enableSound);
+
+
 // ── STAR CANVAS ──
 (function(){
   const c = document.getElementById('star-canvas');
