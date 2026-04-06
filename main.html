@@ -437,14 +437,47 @@
     .stats-strip { grid-template-columns: 1fr 1fr; }
     .sec { padding: 60px 5vw; }
   }
+
+  
+    /* ============================================================
+       MUSIC TOGGLE BUTTON (fixed)
+    ============================================================ */
+    #music-toggle {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 1000;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-bd);
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      color: var(--gold);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      box-shadow: var(--shadow);
+    }
+    #music-toggle:hover { background: rgba(201,169,110,0.15); transform: scale(1.1); }
+
 </style>
 </head>
 <body>
 <!-- Audio -->
 
-<audio id="bg-music" autoplay loop muted>
+<!-- Music toggle (bottom right) -->
+<button id="music-toggle" title="Toggle background music">🎵</button>
+
+<!-- Hidden audio element — a gentle ambient track via data URL placeholder.
+     Replace the src with an actual audio file URL for real music. -->
+<audio id="bg-audio" autoplay loop>
   <source src="i_found_you.mp3" type="audio/mpeg">
 </audio>
+
 
 <!-- Star Canvas -->
 <canvas id="star-canvas"></canvas>
@@ -466,7 +499,7 @@
   <div style="position:relative;z-index:2;">
     <div class="hero-badge">
       <span class="badge-dot"></span>
-      19th Birthday · A New Chapter Begins
+      19th April, 2026 · 19th Birthday
     </div>
     <h1 class="hero-title">
       <span class="line1">Happy 19th Birthday,</span>
@@ -485,17 +518,17 @@
 <section id="wish" class="sec">
   <div class="sec-inner">
     <span class="sec-tag reveal">Birthday Message</span>
-    <h2 class="sec-title reveal">From Everyone <span class="accent">Who Knows You</span></h2>
+    <h2 class="sec-title reveal">From the One <span class="accent">Who Always Supports You</span></h2>
     <div class="sec-line reveal"></div>
     <div class="wish-card reveal">
       <div class="wish-text">
-        Atchaya, turning 19 isn't just another birthday — it's proof that you've already survived and <span class="em">thrived</span> through some of the toughest years of academic life, and you're just warming up.
+        Atchaya, turning 19 isn't just another birthday — it's <span class="em">the last age of teenagehood.</span> From some of the toughest years of academic life, you're just getting started.
         <br><br>
-        Your path toward becoming a <span class="em">Chartered Accountant</span> is no ordinary journey. It demands the kind of discipline most people never develop, the kind of intelligence you actually live by, and the kind of <span class="em2">patience that turns pressure into diamonds</span>. You have all of that.
+        Your path toward becoming a <span class="em">Chartered Accountant</span> is not an ordinary journey. It needs the kind of passion most people never develop, the kind of intelligence you actually live by, and the kind of <span class="em2">patience that turns pressure into diamonds</span>. You have all of that.
         <br><br>
-        We see it — the late nights, the determination, the quiet confidence. Every concept you master, every paper you clear, every hurdle you cross brings you one step closer to the version of yourself you're building. And that version is going to be <span class="em">extraordinary</span>.
+        We see it — the late night studies, the determination, the confidence. Every concept you learn, every paper you have to write, every hurdle you cross brings you one step closer to the version of yourself you want to be.. And that version is going to be <span class="em">CA Atchaya Ezhilarasan</span>.
         <br><br>
-        So here's to 19 — fresh possibilities, new strength, and a future that's as <span class="em2">bright as you are</span>. Keep going. The world needs your kind of brilliance.
+        So here's to 19 — new beginnings, new challenges, and a future that is <span class="em2">as beautiful as you are</span>. Keep going. The world needs your kind of brilliance.
       </div>
     </div>
   </div>
@@ -626,8 +659,8 @@
 <!-- ════ FOOTER ════ -->
 <footer>
   <div class="footer-name">✦ Happy 19th Birthday, Atchaya Ezhilarasan ✦</div>
-  <div class="footer-quote">"Brightest stars take time to rise — yours is already glowing."</div>
-  <div class="footer-bottom">Made with admiration · May your CA dream come true 🌟</div>
+  <div class="footer-quote">"Beautiful flowers take time to bloom, and it's your time now!"</div>
+  <div class="footer-bottom">Made with hope · To the future CA 🌟</div>
 </footer>
 
 <!-- ════ SURPRISE MODAL ════ -->
@@ -635,9 +668,9 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeSurprise()">✕</button>
     <span class="modal-emoji">🌟</span>
-    <div class="modal-title">A Message Just For You</div>
+    <div class="modal-title">A Message Just For The Birthday Girl!</div>
     <div class="modal-msg">
-      "Hey Atchaya — here's a secret: the CA journey picks people who are quietly extraordinary. People who don't quit when it gets heavy, who keep showing up when it's hard, who trust themselves even when doubt creeps in.
+      "Hey Atchaya — You’re one of those people who quietly makes everything better just by being around. I hope this year brings you closer to all your dreams and gives you countless reasons to smile.
       <br><br>
       That person? That's you. And on this birthday, just know — the work you're putting in right now is building something incredible. We're all watching, and we're all rooting for you. 🪽✨"
     </div>
@@ -647,25 +680,32 @@
 
 <script>
 
-const music = document.getElementById('bg-music');
+/* ============================================================
+   MUSIC TOGGLE
+   To use real music: add an <source> inside #bg-audio with your mp3 URL
+============================================================ */
+(function () {
+  const btn   = document.getElementById('music-toggle');
+  const audio = document.getElementById('bg-audio');
+  let playing = false;
 
-// Try to autoplay (muted works)
-window.addEventListener('load', () => {
-  music.play().catch(() => {});
-});
-
-// Unmute on first user interaction
-function enableSound() {
-  music.muted = false;
-  music.volume = 0.6; // adjust volume
-  music.play();
-  document.removeEventListener('click', enableSound);
-  document.removeEventListener('keydown', enableSound);
-}
-
-document.addEventListener('click', enableSound);
-document.addEventListener('keydown', enableSound);
-
+  btn.addEventListener('click', () => {
+    if (!playing) {
+      audio.play().then(() => {
+        playing = true;
+        btn.textContent = '🔊';
+        btn.title = 'Mute music';
+      }).catch(() => {
+        btn.title = 'No audio source — add an MP3 to enable music';
+      });
+    } else {
+      audio.pause();
+      playing = false;
+      btn.textContent = '🔇';
+      btn.title = 'Play background music';
+    }
+  });
+})();
 
 // ── STAR CANVAS ──
 (function(){
