@@ -907,30 +907,31 @@
   <section id="career" class="sec">
     <div class="sec-inner">
       <span class="sec-tag reveal">The Dream</span>
-      <h2 class="sec-title reveal">Future <span class="accent">CA Atchaya</span></h2>
+      <h2 class="sec-title reveal">Reminding who <span class="accent">Atchaya</span> is..</h2>
       <div class="sec-line reveal"></div>
 
       <div class="career-grid">
         <div class="glass-panel career-big reveal">
           <div>
             <span class="big-icon">📊</span>
-            <h3>Built for the Big Leagues</h3>
-            <p>CA isn't just a degree — it's a testament to unshakeable discipline and grit. You're forging a career
+            <h3>Future CA</h3>
+            <p>CA isn't just a degree — it's a testament to your unshakeable discipline. You're forging a career
               that commands respect.</p>
           </div>
-          <div class="ca-badge">✦ Future CA Atchaya ✦</div>
+          <div class="ca-badge">✦ CA Atchaya ✦</div>
         </div>
         <div class="glass-panel career-small reveal">
-          <span class="cs-icon">📈</span>
-          <div class="cs-title">Analytical</div>
-          <div style="color:var(--text-secondary); font-size:0.9rem;">Numbers are your language. You see logic where
-            others see chaos.</div>
+          <span class="cs-icon">🧿👨🏻‍👩🏻‍👧🏻</span>
+          <div class="cs-title">Friend and Child</div>
+          <div style="color:var(--text-secondary); font-size:0.9rem;">You're a great friend, who never failed to bring
+            happiness to the ones around you and a gorgeous daughter to your parents.</div>
         </div>
         <div class="glass-panel career-small reveal">
-          <span class="cs-icon">🎯</span>
-          <div class="cs-title">Focus</div>
-          <div style="color:var(--text-secondary); font-size:0.9rem;">The ability to stay locked in when material gets
-            hard is your superpower.</div>
+          <span class="cs-icon">👩🏻‍🎓</span>
+          <div class="cs-title">Topper</div>
+          <div style="color:var(--text-secondary); font-size:0.9rem;">You're a topper in your studies and a role model
+            to
+            everyone around you.</div>
         </div>
       </div>
     </div>
@@ -939,32 +940,8 @@
   <!-- ── NEW: MOVIES SECTION ── -->
   <section id="movies" class="sec">
     <div class="sec-inner">
-      <span class="sec-tag reveal">Fan Girl Era</span>
-      <h2 class="sec-title reveal">Movie <span class="accent">Magic</span></h2>
-      <div class="sec-line reveal"></div>
-      <div class="movie-grid">
-        <div class="glass-panel movie-card reveal d1">
-          <div class="movie-icon">🎬</div>
-          <div class="movie-title">Mani Ratnam</div>
-          <div class="movie-desc">The heroine of your own magical movie world without all the confusing trains.</div>
-        </div>
-        <div class="glass-panel movie-card reveal d2">
-          <div class="movie-icon">✨</div>
-          <div class="movie-title">R Madhavan</div>
-          <div class="movie-desc">A smile that steals hearts, just like the energy you bring to the room!</div>
-        </div>
-        <div class="glass-panel movie-card reveal d3">
-          <div class="movie-icon">🕶️</div>
-          <div class="movie-title">Thalaivar</div>
-          <div class="movie-desc">Pure superstar swagger and fan-girl dedication down to the core.</div>
-        </div>
-        <div class="glass-panel movie-card reveal d4">
-          <div class="movie-icon">🍃</div>
-          <div class="movie-title">Pravisht Mishra</div>
-          <div class="movie-desc">Fierce, lovable, and protective energy mirroring that very hero!</div>
-        </div>
-      </div>
-
+      <span class="sec-tag reveal">Fan Girl</span>
+      <h2 class="sec-title reveal"><span class="accent">Movie</span> Time!</h2>
       <div class="glass-panel video-container reveal" style="margin-top: 3rem; padding: 1.2rem; border-radius: 20px;">
         <iframe width="100%" height="450" src="https://www.youtube.com/embed/br6NpLSGhZQ" title="YouTube video player"
           frameborder="0"
@@ -1009,7 +986,7 @@
   <div class="hero-btns reveal">
     <button class="btn-primary" onclick="openSurprise()">📸 Click for a Surprise</button>
   </div>
-  <br><br>
+  <br><br><br>
   <!-- ── PHOTO MODAL SURPRISE ── -->
   <div class="modal-overlay" id="modal" onclick="closeOnBg(event)">
     <div class="glass-panel modal-box">
@@ -1096,7 +1073,7 @@
     });
 
     /* ── GAME SYSTEM ── */
-    const emojis = ['AJ.jpeg', 'atchaya.jpeg', '🎬', '👓', '🧿', '💼'];
+    const emojis = ['flower.jpg', 'blue.jpg', 'white.jpg', 'red.png', 'baby.jpg', 'traditional.jpg'];
     let cards = [...emojis, ...emojis];
     let firstCard, secondCard;
     let hasFlippedCard = false;
@@ -1121,7 +1098,7 @@
           faceContent = `<img src="${emoji}" style="width: 80%; height: 80%; object-fit: cover; border-radius: 12px; pointer-events: none;">`;
         }
 
-        card.innerHTML = `<div class="front">${faceContent}</div><div class="back">A</div>`;
+        card.innerHTML = `<div class="front">${faceContent}</div><div class="back"><img src="ca.png" style="width: 90%; height: 55%; object-fit: cover; border-radius: 12px; pointer-events: none;"></div>`;
         card.addEventListener('click', flipCard);
         board.appendChild(card);
       });
