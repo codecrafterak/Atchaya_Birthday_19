@@ -356,7 +356,9 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(34, 211, 238, 0.02));
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .career-big::before {
@@ -366,9 +368,15 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.15), transparent 40%);
+      background: linear-gradient(180deg, rgba(7, 9, 18, 0.55) 0%, rgba(7, 9, 18, 0.8) 100%);
       pointer-events: none;
       border-radius: inherit;
+      z-index: 1;
+    }
+
+    .career-big>* {
+      position: relative;
+      z-index: 2;
     }
 
     .career-big .big-icon {
@@ -412,6 +420,27 @@
     .career-small {
       padding: 2rem;
       transition: transform 0.3s;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .career-small::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(7, 9, 18, 0.6) 0%, rgba(7, 9, 18, 0.85) 100%);
+      pointer-events: none;
+      border-radius: inherit;
+      z-index: 1;
+    }
+
+    .career-small>* {
+      position: relative;
+      z-index: 2;
     }
 
     .career-small:hover {
@@ -911,7 +940,7 @@
       <div class="sec-line reveal"></div>
 
       <div class="career-grid">
-        <div class="glass-panel career-big reveal">
+        <div class="glass-panel career-big reveal" style="background-image: url('ca_atchaya.jpg');">
           <div>
             <span class="big-icon">📊</span>
             <h3>Future CA</h3>
@@ -920,13 +949,13 @@
           </div>
           <div class="ca-badge">✦ CA Atchaya ✦</div>
         </div>
-        <div class="glass-panel career-small reveal">
+        <div class="glass-panel career-small reveal" style="background-image: url('friends2.png');">
           <span class="cs-icon">🧿</span>
           <div class="cs-title">Friend and Child</div>
           <div style="color:var(--text-secondary); font-size:0.9rem;">You're a great friend, who never failed to bring
             happiness to the ones around you and a gorgeous daughter to your parents.</div>
         </div>
-        <div class="glass-panel career-small reveal">
+        <div class="glass-panel career-small reveal" style="background-image: url('friends.jpg');">
           <span class="cs-icon">👩🏻‍🎓</span>
           <div class="cs-title">Topper</div>
           <div style="color:var(--text-secondary); font-size:0.9rem;">You're a topper in your studies and a role model

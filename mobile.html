@@ -335,7 +335,24 @@
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--glass-b);
       border-radius: 20px;
-      overflow: hidden
+      overflow: hidden;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat
+    }
+
+    .gcard.has-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 5, 15, 0.6) 0%, rgba(8, 5, 15, 0.88) 100%);
+      z-index: 1
+    }
+
+    .gcard.has-bg .gcard-inner {
+      position: relative;
+      z-index: 2
     }
 
     .gcard-inner {
@@ -399,10 +416,28 @@
     }
 
     .cbig {
-      background: linear-gradient(135deg, rgba(232, 184, 75, 0.1), rgba(232, 96, 122, 0.05));
       border: 1px solid rgba(232, 184, 75, 0.2);
       border-radius: 20px;
-      padding: 1.75rem 1.5rem
+      padding: 1.75rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat
+    }
+
+    .cbig::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 5, 15, 0.55) 0%, rgba(8, 5, 15, 0.82) 100%);
+      border-radius: inherit;
+      z-index: 1
+    }
+
+    .cbig>* {
+      position: relative;
+      z-index: 2
     }
 
     .cbig-icon {
@@ -681,14 +716,14 @@
     <h2 class="sh reveal">Reminding who <span class="ac">Atchaya</span> is..</h2>
     <div class="sline reveal"></div>
     <div class="cgrid">
-      <div class="cbig reveal">
+      <div class="cbig reveal" style="background-image: url('ca_atchaya.jpg');">
         <div class="cbig-icon">📊</div>
         <h3>Future CA</h3>
         <p style="color:var(--muted);font-size:0.92rem;margin-top:0.5rem">CA isn't just a degree — it's a testament to
           your unshakeable discipline. You're forging a career that commands respect.</p>
         <div class="ca-pill">✦ CA Atchaya ✦</div>
       </div>
-      <div class="gcard reveal">
+      <div class="gcard has-bg reveal" style="background-image: url('friends2.png');">
         <div class="gcard-inner">
           <div class="cs-icon">🧿</div>
           <div class="cs-title">Friend &amp; Daughter</div>
@@ -696,7 +731,7 @@
             gorgeous daughter to your parents.</div>
         </div>
       </div>
-      <div class="gcard reveal">
+      <div class="gcard has-bg reveal" style="background-image: url('friends.jpg');">
         <div class="gcard-inner">
           <div class="cs-icon">👩🏻‍🎓</div>
           <div class="cs-title">Topper</div>
