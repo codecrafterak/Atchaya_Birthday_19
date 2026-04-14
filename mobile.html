@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy 19th Birthday, Atchaya! 🌟 (Mobile Experience)</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;500;700;800;900&family=Satoshi:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070912;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.15);
+      --glass-border-light: rgba(255, 255, 255, 0.4);
+      --glass-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      --glass-bevel: inset 0 1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 1px rgba(0, 0, 0, 0.6);
+
+      --glow-cyan: #22d3ee;
+      --glow-blue: #3b82f6;
+      --btn-depth: #0e2759;
+
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image:
+        radial-gradient(circle at 10% 50%, rgba(59, 130, 246, 0.1), transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(34, 211, 238, 0.1), transparent 40%);
+    }
+
+    /* ── BACKGROUND ORBS FOR GLASS REFRACTION ── */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      z-index: 0;
+    }
+
+    .orb-1 { width: 250px; height: 250px; background: rgba(34, 211, 238, 0.15); top: 5%; left: -50px; }
+    .orb-2 { width: 300px; height: 300px; background: rgba(99, 102, 241, 0.15); bottom: 10%; right: -100px; }
+
+    /* ── SKUEO-GLASS UTILITY ── */
+    .glass-panel {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-light);
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: var(--glass-shadow), var(--glass-bevel);
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── STAR CANVAS ── */
+    #star-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 6vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(7, 9, 18, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .nav-brand {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: var(--glow-cyan);
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+    }
+    
+    /* ── MOBILE NAV BOTTOM BAR ── */
+    .mobile-nav-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(7, 9, 18, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0 24px 0; /* padding for iOS safe area */
+      z-index: 999;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+    }
+
+    .mobile-nav-bottom a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+    
+    .mobile-nav-bottom a:active, .mobile-nav-bottom a:focus {
+      color: var(--glow-cyan);
+    }
+    .mobile-nav-bottom .icon { font-size: 1.2rem; }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 85px 5vw 40px; 
+    }
+
+    .sec-inner { width: 100%; }
+
+    .sec-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--glow-cyan);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .sec-title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
+    }
+    .sec-title .accent { color: var(--glow-cyan); }
+
+    .sec-line {
+      width: 50px;
+      height: 4px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #3b82f6, #22d3ee);
+      margin: 12px 0 2rem;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 100vh;
+      padding: 100px 5vw 60px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(34, 211, 238, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--glow-cyan);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--glow-cyan), var(--glow-blue), #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-quote {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #93c5fd;
+      margin-bottom: 2rem;
+    }
+
+    .hero-num {
+      position: absolute;
+      z-index: 0;
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-weight: 900;
+      font-size: 45vw; /* Size explicitly scaled to mobile width */
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.0));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    /* ── BUTTONS ── */
+    .hero-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .btn-primary, .btn-secondary {
+      width: 100%;
+      padding: 14px 20px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 14px;
+      text-align: center;
+      font-family: 'Satoshi', sans-serif;
+      transition: transform 0.1s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #38bdf8 0%, #1d4ed8 100%);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 0 var(--btn-depth), 0 8px 15px rgba(0, 0, 0, 0.5);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 var(--btn-depth), 0 4px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      color: var(--glow-cyan);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .btn-secondary:active {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ── WISH & TEXT ── */
+    .wish-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+    }
+    .wish-text .em { color: var(--glow-cyan); font-weight: 700; font-style: italic; }
+    .wish-text .em2 { color: #93c5fd; font-weight: 700; }
+
+    /* ── CAREER GRID ── */
+    .career-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .career-big {
+      padding: 2rem 1.5rem;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(34, 211, 238, 0.02));
+    }
+    
+    .career-big .big-icon { font-size: 3rem; margin-bottom: 0.8rem; }
+    .career-big h3 { font-size: 1.6rem; font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800; }
+
+    .ca-badge {
+      display: inline-block;
+      margin-top: 1.2rem;
+      background: linear-gradient(180deg, #22d3ee, #0284c7);
+      color: white;
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 8px 18px;
+      border-radius: 50px;
+    }
+
+    .career-small { padding: 1.5rem; }
+    .cs-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .cs-title { font-size: 1.15rem; font-family: 'Cabinet Grotesk', sans-serif; font-weight: 800; color: #fff; }
+
+    /* ── VIDEO SECTIONS ── */
+    .video-container {
+      padding: 0.8rem !important; 
+      border-radius: 16px !important;
+      margin-top: 2rem;
+    }
+    
+    .video-container iframe {
+      border-radius: 10px !important;
+      height: 220px !important; 
+    }
+
+    /* ── GAME SECTION ── */
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 100%;
+      margin: 2rem auto;
+      perspective: 1000px;
+    }
+
+    .game-card {
+      height: 85px;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+    }
+    .game-card.flip { transform: rotateY(180deg); }
+    
+    .game-card .front, .game-card .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+    }
+    .game-card .front { transform: rotateY(180deg); }
+    .game-card .back { font-size: 1.5rem; color: var(--glow-cyan); font-weight: 800; }
+
+    /* ── PLAYLIST MINI-PLAYER ── */
+    .playlist-player {
+      position: fixed;
+      bottom: 85px; /* Sits right above mobile nav */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 998;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 18px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(15, 20, 35, 0.85);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-top: 1px solid rgba(255,255,255,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      backdrop-filter: blur(15px);
+    }
+
+    .player-info {
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      text-align: left;
+    }
+
+    .player-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .ctrl-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--glow-cyan);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+    .ctrl-btn.play {
+      background: linear-gradient(180deg, var(--glow-cyan), #1d4ed8);
+      color: #fff;
+      width: 38px;
+      height: 38px;
+      font-size: 1rem;
+    }
+
+    /* ── MODAL COMPONENT ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    
+    .modal-box {
+      width: 85%;
+      padding: 1.5rem;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    
+    .modal-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2.5rem;
+    }
+    
+    .polaroid-frame {
+      padding: 12px;
+      margin-bottom: 1rem;
+    }
+    .polaroid-img { border-radius: 6px; width: 100%; height: auto; display: block; object-fit: cover;}
+
+    /* REVEAL ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Footer / Spacing */
+    footer { padding: 50px 5vw 150px !important; text-align: center; } /* enough bottom space for player + nav */
+    
+    /* Completely disable custom cursors on mobile screens */
+    .custom-cursor-dot, .custom-cursor-outline { display: none !important; }
+  </style>
+</head>
+
+<body>
+
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <canvas id="star-canvas"></canvas>
+
+  <!-- ── PLAYLIST MINI-PLAYER (MOBILE OPTIMIZED) ── -->
+  <div class="playlist-player" id="music-player">
+    <div class="player-info" id="track-title">Loading Track...</div>
+    <div class="player-controls">
+      <button class="ctrl-btn" id="btn-prev">⏮</button>
+      <button class="ctrl-btn play" id="btn-play">▶</button>
+      <button class="ctrl-btn" id="btn-next">⏭</button>
+    </div>
+  </div>
+  <audio id="bg-audio"></audio>
+
+  <nav>
+    <div class="nav-brand">✦ Atchaya · 19</div>
+  </nav>
+
+  <!-- ── MOBILE BOTTOM NAV BAR ── -->
+  <div class="mobile-nav-bottom">
+    <a href="#hero">
+      <span class="icon">🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="#wish">
+      <span class="icon">💌</span>
+      <span>Wishes</span>
+    </a>
+    <a href="#career">
+      <span class="icon">💼</span>
+      <span>Career</span>
+    </a>
+    <a href="#play">
+      <span class="icon">🎮</span>
+      <span>Play</span>
+    </a>
+  </div>
+
+  <section id="hero">
+    <div class="hero-num">19</div>
+    <div style="position:relative; z-index:2;">
+      <div class="hero-badge reveal">✦ 19th April, 2026</div>
+      <h1 class="hero-title reveal">
+        <span style="display:block;">Happy 19th Birthday,</span>
+        <span class="line2">Atchaya Ezhilarasan!</span>
+      </h1>
+      <p class="hero-quote reveal">Brightest stars take time to rise ✨</p>
+    </div>
+  </section>
+
+  <!-- CA WISH & JOURNEY... -->
+  <section id="wish" class="sec">
+    <div class="sec-inner">
+      <span class="sec-tag reveal">Birthday Message</span>
+      <h2 class="sec-title reveal">From the One <span class="accent">Who Always Supports You</span></h2>
+      <div class="sec-line reveal"></div>
+      <div class="glass-panel reveal" style="padding: 2rem;">
+        <div class="wish-text">
+          Atchaya, turning 19 isn't just another birthday — it's <span class="em">the last age of teenagehood.</span>
+          From some of the toughest years of academic life, you're just getting started.
+          <br><br>
+          Your path toward becoming a <span class="em">Chartered Accountant</span> is not an ordinary journey. It needs
+          the kind of passion most people never develop, and the kind of <span class="em2">patience that turns pressure
+            into diamonds</span>. You have all of that.
+          <br><br>
+          Keep going. The world needs your kind of brilliance.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="career" class="sec">
+    <div class="sec-inner">
+      <span class="sec-tag reveal">The Dream</span>
+      <h2 class="sec-title reveal">Reminding who <span class="accent">Atchaya</span> is..</h2>
+      <div class="sec-line reveal"></div>
+
+      <div class="career-grid">
+        <div class="glass-panel career-big reveal">
+          <div>
+            <span class="big-icon">📊</span>
+            <h3>Future CA</h3>
+            <p style="color:var(--text-secondary); margin-top:0.5rem; font-size: 0.95rem;">CA isn't just a degree — it's a testament to your unshakeable discipline. You're forging a career
+              that commands respect.</p>
+          </div>
+          <div class="ca-badge">✦ CA Atchaya ✦</div>
+        </div>
+        <div class="glass-panel career-small reveal">
+          <span class="cs-icon">🧿👨🏻‍👩🏻‍👧🏻</span>
+          <div class="cs-title">Friend and Child</div>
+          <div style="color:var(--text-secondary); font-size:0.9rem; margin-top:0.5rem;">You're a great friend, who never failed to bring
+            happiness to the ones around you and a gorgeous daughter to your parents.</div>
+        </div>
+        <div class="glass-panel career-small reveal">
+          <span class="cs-icon">👩🏻‍🎓</span>
+          <div class="cs-title">Topper</div>
+          <div style="color:var(--text-secondary); font-size:0.9rem; margin-top:0.5rem;">You're a topper in your studies and a role model
+            to everyone around you.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="movies" class="sec">
+    <div class="sec-inner">
+      <span class="sec-tag reveal">Fan Girl</span>
+      <h2 class="sec-title reveal"><span class="accent">Movie</span> Time!</h2>
+      <div class="sec-line reveal"></div>
+      <div class="glass-panel video-container reveal">
+        <iframe width="100%" src="https://www.youtube.com/embed/br6NpLSGhZQ" title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="play" class="sec">
+    <div class="sec-inner" style="text-align: center;">
+      <span class="sec-tag reveal">Brain Break</span>
+      <h2 class="sec-title reveal">Match the <span class="accent">Vibes</span></h2>
+      <div class="sec-line reveal" style="margin-left:auto; margin-right:auto;"></div>
+
+      <div class="game-board" id="memory-game">
+        <!-- Generated by JS -->
+      </div>
+      <button class="btn-secondary" id="restart-btn" style="display:none; width: auto; padding: 10px 24px; margin: 0 auto;" onclick="initGame()">Play Again 🔄</button>
+    </div>
+  </section>
+
+  <section id="dance" class="sec">
+    <div class="sec-inner" style="text-align: center;">
+      <span class="sec-tag reveal">Celebration</span>
+      <h2 class="sec-title reveal">Classical <span class="accent">Dance!</span></h2>
+      <div class="sec-line reveal" style="margin-left:auto; margin-right:auto;"></div>
+
+      <div class="glass-panel video-container reveal" style="max-width: 900px; margin: 0 auto;">
+        <iframe width="100%" src="https://www.youtube.com/embed/tEARB5Boo_o?start=9790"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="hero-btns reveal" style="margin-top: 3rem;">
+      <button class="btn-primary" onclick="openSurprise()">📸 Click for a Surprise</button>
+    </div>
+  </section>
+
+  <!-- ── PHOTO MODAL SURPRISE ── -->
+  <div class="modal-overlay" id="modal" onclick="closeOnBg(event)">
+    <div class="glass-panel modal-box">
+      <button class="modal-close" onclick="closeSurprise()">✕</button>
+      <div class="polaroid-frame">
+        <img src="AJ.jpeg" alt="Surprise!" class="polaroid-img"
+          onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%230e2759\'/><text x=\'50\' y=\'55\' font-family=\'sans-serif\' font-size=\'15\' fill=\'white\' text-anchor=\'middle\'>AJ.jpeg</text></svg>'">
+      </div>
+      <div class="sec-title" style="font-size:1.5rem; margin-bottom: 0.5rem;">Happy Birthday! 🌟</div>
+      <div class="wish-text" style="font-size: 1rem;">
+        Hope this incredibly cool framed drawing brightens your day!🪽✨
+      </div>
+    </div>
+  </div>
+
+  <footer class="sec" style="border-top: 1px solid var(--glass-border); background: linear-gradient(180deg, rgba(34,211,238,0.02), rgba(0,0,0,0.4));">
+    <div class="sec-inner">
+      <div class="hero-badge" style="margin-bottom: 1.5rem;">✦ 2026 ✦</div>
+      <div class="sec-title" style="font-size: 2rem;">Happy 19th Birthday, <br><span class="accent">Atchaya</span></div>
+      <p class="wish-text" style="font-size: 1.2rem; font-style:italic; margin-top: 1rem; color: #93c5fd;">"Beautiful
+        flowers take time to bloom, and it's your time now!"</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ── PLAYLIST PLAYER ── */
+    const audio = document.getElementById('bg-audio');
+    const btnPlay = document.getElementById('btn-play');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const trackTitle = document.getElementById('track-title');
+
+    const playlist = [
+      { src: 'i_found_you.mp3', name: '1. I Found You' },
+      { src: 'perfect.mp3', name: '2. Perfect' },
+      { src: 'perfect.mp3', name: '3. Perfect' },
+      { src: 'perfect.mp3', name: '4. Perfect' },
+      { src: 'perfect.mp3', name: '5. Perfect' }
+    ];
+    let currentTrack = 0;
+    let isPlaying = false;
+
+    function loadTrack(index) {
+      audio.src = playlist[index].src;
+      trackTitle.innerText = playlist[index].name;
+      audio.load();
+    }
+
+    function togglePlay() {
+      if (isPlaying) { audio.pause(); } else { audio.play(); }
+    }
+
+    function playNext() {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      loadTrack(currentTrack);
+      if (isPlaying) audio.play();
+    }
+
+    function playPrev() {
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrack);
+      if (isPlaying) audio.play();
+    }
+
+    audio.onplaying = () => { isPlaying = true; btnPlay.innerHTML = '⏸'; };
+    audio.onpause = () => { isPlaying = false; btnPlay.innerHTML = '▶'; };
+    audio.onended = () => { playNext(); };
+
+    btnPlay.addEventListener('click', togglePlay);
+    btnNext.addEventListener('click', playNext);
+    btnPrev.addEventListener('click', playPrev);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadTrack(currentTrack);
+      /* Usually autoplay on mobile requires strict interaction */
+      audio.play().catch(() => {
+        const playOnce = () => { audio.play(); document.removeEventListener('click', playOnce); };
+        document.addEventListener('click', playOnce, { once: true });
+        document.addEventListener('touchstart', playOnce, { once: true });
+      });
+    });
+
+    /* ── GAME SYSTEM ── */
+    const emojis = ['flower.jpg', 'blue.jpg', 'white.jpg', 'red.png', 'baby.jpg', 'traditional.jpg'];
+    let cards = [...emojis, ...emojis];
+    let firstCard, secondCard;
+    let hasFlippedCard = false;
+    let lockBoard = false;
+    let matchesFound = 0;
+    const board = document.getElementById('memory-game');
+    const restartBtn = document.getElementById('restart-btn');
+
+    function initGame() {
+      board.innerHTML = '';
+      cards.sort(() => 0.5 - Math.random());
+      matchesFound = 0; hasFlippedCard = false; lockBoard = false; firstCard = null; secondCard = null;
+      restartBtn.style.display = 'none';
+
+      cards.forEach((emoji) => {
+        const card = document.createElement('div');
+        card.classList.add('game-card');
+        card.dataset.emoji = emoji;
+
+        let faceContent = emoji;
+        if (emoji.match(/\.(jpeg|jpg|png|gif|svg)$/i)) {
+          faceContent = `<img src="${emoji}" style="width: 80%; height: 80%; object-fit: cover; border-radius: 8px; pointer-events: none;">`;
+        }
+
+        card.innerHTML = `<div class="front">${faceContent}</div><div class="back"><img src="ca.png" style="width: 80%; height: 80%; object-fit: cover; border-radius: 8px; pointer-events: none;" onerror="this.style.display='none'"></div>`;
+        card.addEventListener('click', flipCard);
+        board.appendChild(card);
+      });
+    }
+
+    function flipCard() {
+      if (lockBoard || this === firstCard) return;
+      this.classList.add('flip');
+      if (!hasFlippedCard) { hasFlippedCard = true; firstCard = this; return; }
+      secondCard = this; checkForMatch();
+    }
+
+    function checkForMatch() {
+      let isMatch = firstCard.dataset.emoji === secondCard.dataset.emoji;
+      isMatch ? disableCards() : unflipCards();
+    }
+
+    function disableCards() {
+      firstCard.removeEventListener('click', flipCard);
+      secondCard.removeEventListener('click', flipCard);
+      matchesFound++;
+      if (matchesFound === emojis.length) { setTimeout(() => { restartBtn.style.display = 'inline-block'; }, 800); }
+      resetBoard();
+    }
+
+    function unflipCards() {
+      lockBoard = true;
+      setTimeout(() => {
+        firstCard.classList.remove('flip'); secondCard.classList.remove('flip'); resetBoard();
+      }, 1000);
+    }
+
+    function resetBoard() { [hasFlippedCard, lockBoard] = [false, false];[firstCard, secondCard] = [null, null]; }
+    initGame();
+
+    /* ── MODAL & REVEALS ── */
+    function openSurprise() { document.getElementById('modal').classList.add('open'); }
+    function closeSurprise() { document.getElementById('modal').classList.remove('open'); }
+    function closeOnBg(e) { if (e.target === document.getElementById('modal')) closeSurprise(); }
+
+    const revEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.05 });
+    revEls.forEach(el => io.observe(el));
+
+    /* ── STAR CANVAS ── */
+    const c = document.getElementById('star-canvas'); const cx = c.getContext('2d');
+    function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+    resize(); window.addEventListener('resize', resize);
+    const stars = Array.from({ length: 80 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + 0.3, twinkle: Math.random() * Math.PI * 2, speed: Math.random() * 0.01 + 0.005 }));
+    function draw() {
+      cx.clearRect(0, 0, c.width, c.height);
+      stars.forEach(s => {
+        s.twinkle += s.speed; const op = 0.3 + Math.sin(s.twinkle) * 0.4;
+        cx.beginPath(); cx.arc(s.x * c.width, s.y * c.height, s.r, 0, Math.PI * 2); cx.fillStyle = `rgba(255,255,255,${op})`; cx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+  </script>
+</body>
+
+</html>
